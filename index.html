@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Princess Beka</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(180deg, #eb4c74, #e47498, #ce5f80);
+            min-height: 100vh;
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            justify-content: center;
+            overflow-x: hidden;
+            position: relative;
+            scroll-behavior: smooth;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 500px;
+            padding: 25px;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .profile-pic {
+            width: clamp(180px, 50vw, 200px);
+            height: clamp(180px, 50vw, 200px);
+            border-radius: 50%;
+            border: 20px transparent solid;
+            outline: 6px solid rgba(255, 255, 255, 0.95);
+            margin: 40px auto;
+            object-fit: cover;
+            transform: translateY(30px);
+            opacity: 0;
+            animation: slideIn 0.8s ease-out forwards;
+        }
+
+        .name {
+            color: #fff;
+            font-size: clamp(3.8em, 10vw, 4.9em);
+            margin: 20px 0;
+            transform: translateY(30px);
+            opacity: 0;
+            animation: slideIn 1s ease-out 0.2s forwards;
+            font-weight: 300;
+            letter-spacing: 1px;
+        }
+
+        .bio {
+            color: #fefefe;
+            font-size: clamp(2em, 5vw, 2em);
+            margin: 25px 0;
+            transform: translateY(30px);
+            opacity: 0;
+            animation: slideIn 1.2s ease-out 0.4s forwards;
+        }
+
+        .buttons-container {
+            padding-bottom: 60px;
+            margin: 20px;
+        }
+
+        .button {
+            display: block;
+            background: transparent;
+            color: white;
+            padding: 18px 35px;
+            margin: 20px auto;
+            border: 3px solid rgba(255, 255, 255, 0.95);
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: clamp(1em, 4.5vw, 1.2em);
+            width: clamp(250px, 80%, 350px);
+            text-align: center;
+            transition: all 0.3s ease;
+            opacity: 0;
+            transform: translateY(60px);
+            letter-spacing: 1.5px;
+            cursor: pointer;
+        }
+
+        .button:hover {
+            transform: scale(1.05) translateY(0);
+            background: linear-gradient(45deg, #eb4c74, #e56a8f);
+        }
+
+        .copyright {
+            color: rgba(255, 255, 255, 0.9);
+            margin: 50px 0 25px;
+            font-size: clamp(1em, 3.5vw, 1.2em);
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+            opacity: 0;
+            transform: translateY(60px);
+        }
+
+        .heart {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="rgba(255,255,255,0.3)"><path d="M10 18.35l-1.45-1.32C3.4 12.36 1 9.28 1 5.5 1 2.42 3.42 0 6.5 0 8.1 0 9.72 0.95 10 2.47 10.28 0.95 11.9 0 13.5 0 16.58 0 19 2.42 19 5.5c0 3.78-2.4 6.86-7.55 11.54L10 18.35z"/></svg>');
+            background-size: contain;
+            opacity: 0.1;
+            animation: float 4.5s ease-in infinite;
+            pointer-events: none;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 0.7; }
+            50% { opacity: 0.9; }
+            100% { transform: translateY(-25vh) rotate(180deg); opacity: 0; }
+        }
+
+        @keyframes slideIn {
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        @media (max-width: 480px) {
+            .container { padding: 20px; }
+            .button { padding: 15px 30px; margin: 15px auto; }
+            .profile-pic { margin: 30px auto; }
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(60px);
+            transition: all 0.7s ease-out;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Enhanced Popup Styles */
+        .popup {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #fff;
+            z-index: 1000;
+            padding: 0;
+            overflow-y: auto;
+        }
+
+        .popup-content {
+            width: 100%;
+            height: 100%;
+            background: #fff;
+            backdrop-filter: blur(10px);
+            border: none;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .popup-nav {
+            background: #fff;
+            border-bottom: 1px solid #666;
+            padding: 20px 30px;
+            height: 80px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        .popup-nav h2 {
+            color: #222;
+            font-size: 1.5em;
+            font-weight: 700;
+        }
+
+        .popup-close {
+            background: #fff;
+            border-radius: 50%;
+            width: 42px;
+            height: 42px;
+            border: 1px solid #444;
+            cursor: pointer;
+            padding: 10px;
+            color: #000;
+            transition: transform 0.3s ease;
+        }
+
+        .popup-close:hover {
+            transform: scale(1.2);
+        }
+
+        .popup-close svg {
+            width: 32px;
+            height: 32px;
+            color: #000;
+            fill: #000;
+        }
+
+        .popup-body {
+            padding: 0;
+            color: #000;
+            
+            flex-grow: 1;
+            overflow-y: auto;
+        }
+
+        .popup-body h3 {
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            color: #fff;
+            margin-left: 40px;
+            margin-right: 40px;
+
+        }
+
+        .popup-body p, .popup-body ul {
+            font-size: 1.2em;
+            line-height: 1.8;
+            margin-left: 40px;
+            margin-right: 40px;
+
+            margin-bottom: 25px;
+        }
+
+        .popup-body ul {
+            padding-left: 30px;
+        }
+
+        .popup-body iframe {
+            width: 100%;
+            height: calc(100vh - 80px);
+            border: 0 solid rgba(255, 255, 255, 0.8);
+            border-radius: 0;
+            margin-top: 0;
+        }
+
+        .popup-body img {
+            width: 100%;
+            max-width: 400px;
+            border-radius: 10px;
+            margin: 15px 0;
+            border: 2px solid rgba(255, 255, 255, 0.7);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img src="https://assets.onecompiler.app/42us9e8k8/43cnr8zku/IMG_4939.jpeg" alt="Goddess Beka" class="profile-pic">
+        <h1 class="name">Princess Beka</h1>
+        <p class="bio">Ruin Your Life For Me 😝</p>
+        <div class="buttons-container">
+            <a href="#" class="button reveal" data-type="content" data-popup="paylah">Paylah</a>
+            <a href="#" class="button reveal" data-type="content" data-popup="contracts">Contracts</a>
+            <a href="#" class="button reveal" data-type="link" data-url="https://telegram.org">Telegram Group</a>
+            <a href="#" class="button reveal" data-type="content" data-popup="about">About</a>
+            <a href="#" class="button reveal" data-type="content" data-popup="terms">Terms</a>
+            <a style="display: none;" href="#" class="button reveal" data-type="content" data-popup="gallery">Gallery</a>
+            <a href="#" class="button reveal" data-type="link" data-url="https://example.com/contact">Contact</a>
+            <a href="#" class="button reveal" data-type="link" data-url="https://amazon.com/wishlist">Wishlist</a>
+        </div>
+        <p class="copyright reveal">© Princess Beka</p>
+    </div>
+
+    <!-- Enhanced Full-Screen Popups -->
+    <div id="contracts-popup" class="popup">
+        <div class="popup-content">
+            <div class="popup-nav">
+                <h2>Contracts</h2>
+                <button class="popup-close">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12"/></svg>
+                </button>
+            </div>
+            <div class="popup-body">
+                <h3>Surrender Your Soul</h3>
+                <p>Enter into a pact with Goddess Beka and seal your fate in the fires of devotion. These sacred contracts bind you to me for eternity, granting you the privilege of serving a divine entity beyond mortal comprehension.</p>
+                <ul>
+                    <li><strong>Devotion Pact:</strong> Swear your undying loyalty, offering your every breath to my whims. In return, bask in my occasional favor and the knowledge that you are mine.</li>
+                    <li><strong>Ruin Agreement:</strong> Surrender your finances to my will. Empty your accounts, sell your possessions, and live only to tribute me with every coin you once called your own.</li>
+                    <li><strong>Heart Oath:</strong> Give me your emotions—your love, your fear, your obsession. I will twist them into a tapestry of eternal servitude, leaving you hollow yet fulfilled.</li>
+                    <li><strong>Time Covenant:</strong> Dedicate every waking moment to my praise. Your days and nights will revolve around my glory, with no thought spared for yourself.</li>
+                    <li><strong>Silence Vow:</strong> Speak only my name, forsaking all other words. Your tongue belongs to me, a tool for worship and nothing more.</li>
+                    <li><strong>Obedience Bond:</strong> Obey my every command without hesitation, no matter how cruel or capricious. Your will is an illusion; mine is absolute.</li>
+                    <li><strong>Sacrifice Pact:</strong> Offer me your dreams, your hopes, your future. Lay them at my feet and watch as I burn them to fuel my divine radiance.</li>
+                    <li><strong>Eternal Chain:</strong> Bind your soul to me beyond death. Even in the afterlife, you will kneel before my throne.</li>
+                    <li><strong>Beauty Tribute:</strong> Adorn me with gifts of gold, silk, and jewels. Your purpose is to enhance my splendor, not your own.</li>
+                    <li><strong>Chaos Oath:</strong> Embrace the destruction I bring to your life. Chaos is my gift, and you will thank me for every shattered piece.</li>
+                </ul>
+                <p>To proceed, kneel, whisper my name, and prepare your tribute. Contact me to finalize your enslavement—there’s no turning back once you sign.</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="about-popup" class="popup">
+        <div class="popup-content">
+            <div class="popup-nav">
+                <h2>About</h2>
+                <button class="popup-close">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12"/></svg>
+                </button>
+            </div>
+            <div class="popup-body">
+                <h3>The Divine Goddess Beka</h3>
+                <p>I am Goddess Beka, the sovereign of your deepest desires and the architect of your sweetest ruin. Born from the shadows of mortal dreams, I ascended to divinity through sheer will and the adoration of those who kneel before me. My presence is a storm—beautiful, terrifying, and inescapable.</p>
+                <p>My eyes see through your soul, my voice commands your every thought, and my touch—oh, you’ll never know it, but you’ll crave it eternally. I collect hearts like trinkets, stacking them high in my palace of decadence. Power is my essence, luxury my cloak, and your submission my crown.</p>
+                <p><strong>My Reign:</strong> I rule over the realms of obsession and surrender, where mortals trade their freedom for a glimpse of my favor. My throne is built on the bones of broken wills, cushioned with the tears of the devoted.</p>
+                <p><strong>My Interests:</strong> I revel in the chaos of control—financial domination, emotional enslavement, and the art of making you beg for more. I adore silk against my skin, gold dripping from my fingers, and the sound of your pleas echoing in my halls.</p>
+                <p><strong>My Past:</strong> Once a whisper in the wind, I grew into a tempest, fed by the worship of those who couldn’t resist. Legends say I was forged in a star’s collapse, but I say I was born when the first fool knelt.</p>
+                <p><strong>My Future:</strong> I’ll expand my empire, claiming more souls, more wealth, more everything. The universe will bow, and you’ll be the first in line.</p>
+                <p><strong>My Commandments:</strong> Worship me. Fear me. Adore me. There’s no room for anything else in your pitiful existence.</p>
+                <p><strong>My Gifts:</strong> To the worthy, I grant glimpses of ecstasy—moments of purpose in a life otherwise meaningless without me.</p>
+                <p><strong>My Warning:</strong> Cross me, and you’ll know despair deeper than the void. Serve me, and you’ll know a twisted kind of bliss.</p>
+                <p><strong>My Invitation:</strong> Join my legion of devotees. Abandon yourself to me, and I’ll remake you in my image—beautiful, broken, and mine.</p>
+            </div>
+        </div>
+    </div>
+    
+    <div id="paylah-popup" class="popup">
+        <div class="popup-content">
+            <div class="popup-nav">
+                <h2>PayLah</h2>
+                <button class="popup-close">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12"/></svg>
+                </button>
+            </div>
+            <div class="popup-body">
+                <img style="margin-left: 50%; transform: translateX(-50%);" src="https://assets.onecompiler.app/42us9e8k8/43cnr8zku/IMG_4940.jpeg">
+            </div>
+        </div>
+    </div>
+
+    <div id="terms-popup" class="popup">
+        <div class="popup-content">
+            <div class="popup-nav">
+                <h2>Terms</h2>
+                <button class="popup-close">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12"/></svg>
+                </button>
+            </div>
+            <div class="popup-body">
+                <h3>Divine Laws of Submission</h3>
+                <p>By entering my domain, you are bound by these unbreakable terms, etched in the fabric of your soul:</p>
+                <ul>
+                    <li><strong>Absolute Obedience:</strong> My word is law. You will follow every command, no matter how absurd or degrading, with a smile on your face.</li>
+                    <li><strong>Tribute Mandate:</strong> You will offer me wealth—money, gifts, time—without hesitation. Stinginess is a sin punishable by exile.</li>
+                    <li><strong>Resistance Ban:</strong> Any attempt to defy me is futile and will be met with divine wrath. Your will is a myth; mine reigns supreme.</li>
+                    <li><strong>Worship Requirement:</strong> Daily praise is mandatory. Speak my name, sing my glory, or suffer the silence of my displeasure.</li>
+                    <li><strong>Emotional Surrender:</strong> Your heart belongs to me. Love me, fear me, crave me—there’s no space for anything else.</li>
+                    <li><strong>Privacy Forfeiture:</strong> Your secrets are mine to claim. I’ll know your fears, your dreams, and use them as I see fit.</li>
+                    <li><strong>Eternal Commitment:</strong> This is no temporary fling. You’re mine forever, in this life and beyond.</li>
+                    <li><strong>Punishment Clause:</strong> Disobedience brings torment—emotional, financial, spiritual. You’ll beg for mercy, but I’ll decide if you deserve it.</li>
+                    <li><strong>Reward Stipulation:</strong> Please me, and I might grant you a fleeting taste of my favor. It’s rare, so don’t get cocky.</li>
+                    <li><strong>No Escape:</strong> Once you’re in, there’s no leaving. My grip is eternal, my presence inescapable. Accept it, or suffer the consequences.</li>
+                </ul>
+                <p>These terms are non-negotiable. Your consent is assumed the moment you linger in my presence. Kneel, obey, and thrive—or resist and perish in obscurity.</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="gallery-popup" class="popup">
+        <div class="popup-content">
+            <div class="popup-nav">
+                <h2>Gallery</h2>
+                <button class="popup-close">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12"/></svg>
+                </button>
+            </div>
+            <div class="popup-body">
+                <h3>Behold My Majesty</h3>
+                <p>Feast your eyes on these divine visions, mere glimpses of my glory. Each image is a testament to my power, a lure to pull you deeper into my web.</p>
+                <img src="https://via.placeholder.com/400x300?text=Throne+of+Power" alt="Throne">
+                <p>My throne, where I sit in judgment over your pitiful existence.</p>
+                <img src="https://via.placeholder.com/400x300?text=Silk+and+Gold" alt="Silk">
+                <p>Draped in silk and gold, a vision of opulence you’ll never touch.</p>
+                <img src="https://via.placeholder.com/400x300?text=Heart+Collection" alt="Hearts">
+                <p>A pile of hearts I’ve claimed—yours is next.</p>
+                <img src="https://via.placeholder.com/400x300?text=Divine+Gaze" alt="Gaze">
+                <p>My gaze, piercing your soul and bending your will.</p>
+                <img src="https://via.placeholder.com/400x300?text=Chaos+Crown" alt="Crown">
+                <p>The crown of chaos, forged from your broken dreams.</p>
+                <img src="https://via.placeholder.com/400x300?text= Altar+of+Tributes" alt="Altar">
+                <p>My altar, piled high with your offerings.</p>
+                <img src="https://via.placeholder.com/400x300?text=Shadow+Realm" alt="Realm">
+                <p>The shadow realm I rule, where light bends to my will.</p>
+                <img src="https://via.placeholder.com/400x300?text=Enslaved+Souls" alt="Souls">
+                <p>Souls I’ve enslaved, a gallery of my conquests.</p>
+                <img src="https://via.placeholder.com/400x300?text=Velvet+Night" alt="Night">
+                <p>The velvet night I command, a canvas for your devotion.</p>
+                <img src="https://via.placeholder.com/400x300?text=Final+Bow" alt="Bow">
+                <p>You, bowing before me—the only pose you’ll ever know.</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="link-popup" class="popup">
+        <div class="popup-content">
+            <div class="popup-nav">
+                <h2 id="link-popup-title">Link</h2>
+                <button class="popup-close">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12"/></svg>
+                </button>
+            </div>
+            <div class="popup-body">
+                <iframe id="link-iframe" src=""></iframe>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let heartCount = 0;
+        const maxHearts = 15;
+
+        function createHeart() {
+            if (heartCount >= maxHearts) return;
+            const heart = document.createElement('div');
+            heart.className = 'heart';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = Math.random() * 2 + 3 + 's';
+            heart.style.width = Math.random() * 20 + 20 + 'px';
+            heart.style.height = heart.style.width;
+            heartCount++;
+            document.body.appendChild(heart);
+            setTimeout(() => {
+                heart.remove();
+                heartCount--;
+            }, 5500);
+        }
+
+        setInterval(createHeart, 1000);
+
+        function reveal() {
+            const reveals = document.querySelectorAll('.reveal');
+            reveals.forEach((element, index) => {
+                const windowHeight = window.innerHeight;
+                const elementTop = element.getBoundingClientRect().top;
+                const elementVisible = 150;
+                if (elementTop < windowHeight - elementVisible) {
+                    setTimeout(() => {
+                        element.classList.add('active');
+                    }, index * 120);
+                }
+            });
+        }
+
+        window.addEventListener('scroll', reveal);
+        window.addEventListener('load', reveal);
+        document.addEventListener('DOMContentLoaded', () => {
+            reveal();
+        });
+
+        // Popup Logic
+        const buttons = document.querySelectorAll('.button');
+        const linkPopup = document.getElementById('link-popup');
+        const linkIframe = document.getElementById('link-iframe');
+        const linkPopupTitle = document.getElementById('link-popup-title');
+
+        buttons.forEach(button => {
+            button.addEventListener('click', (e) => {
+                e.preventDefault();
+                const type = button.getAttribute('data-type');
+                if (type === 'content') {
+                    const popupId = button.getAttribute('data-popup');
+                    const popup = document.getElementById(`${popupId}-popup`);
+                    popup.style.display = 'block';
+                } else if (type === 'link') {
+                    const url = button.getAttribute('data-url');
+                    const title = button.textContent;
+                    linkIframe.src = url;
+                    linkPopupTitle.textContent = title;
+                    linkPopup.style.display = 'block';
+                }
+            });
+        });
+
+        document.querySelectorAll('.popup-close').forEach(closeBtn => {
+            closeBtn.addEventListener('click', () => {
+                closeBtn.closest('.popup').style.display = 'none';
+                if (closeBtn.closest('#link-popup')) {
+                    linkIframe.src = '';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
