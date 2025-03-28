@@ -1,9 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Princess Beka - Surrender to Elegance and Power">
+    <meta name="keywords" content="Princess Beka, findom, luxury, devotion">
+    <meta name="author" content="Princess Beka">
     <title>Princess Beka</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Roboto:wght@300;400;700&display=swap"
+        rel="stylesheet">
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='none' stroke='%23e94e77' stroke-width='2' d='M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z'/></svg>">
     <style>
         * {
             margin: 0;
@@ -12,137 +21,360 @@
         }
 
         body {
-            background: linear-gradient(180deg, #eb4c74, #e47498, #ce5f80);
+            background: linear-gradient(135deg, #f9e9ec, #fff0f5, #ffe6eb);
             min-height: 100vh;
-            font-family: 'Arial', sans-serif;
+            font-family: 'Roboto', sans-serif;
+            color: #333;
             display: flex;
             justify-content: center;
+            align-items: center;
             overflow-x: hidden;
             position: relative;
             scroll-behavior: smooth;
+            line-height: 1.6;
         }
 
         .container {
             width: 100%;
-            max-width: 500px;
-            padding: 25px;
+            max-width: 700px;
+            padding: 40px 20px;
             text-align: center;
             position: relative;
             z-index: 1;
-            overflow: hidden;
+        }
+
+        .header {
+            position: sticky;
+            top: 0;
+            background: transparent;
+            padding: 15px 0;
+            z-index: 10;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5em;
+            color: #e94e77;
+        }
+
+        .theme-toggle {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 5px;
+        }
+
+        .theme-toggle svg {
+            width: 24px;
+            height: 24px;
+            fill: #e94e77;
+            display: none;
         }
 
         .profile-pic {
-            width: clamp(180px, 50vw, 200px);
-            height: clamp(180px, 50vw, 200px);
+            width: clamp(180px, 45vw, 220px);
+            height: clamp(180px, 45vw, 220px);
             border-radius: 50%;
-            border: 20px transparent solid;
-            outline: 6px solid rgba(255, 255, 255, 0.95);
-            margin: 40px auto;
+            border: 6px solid #fff;
+            margin: 30px auto;
             object-fit: cover;
-            transform: translateY(30px);
             opacity: 0;
-            animation: slideIn 0.8s ease-out forwards;
+            animation: fadeIn 1s ease-out forwards;
         }
 
         .name {
-            color: #fff;
-            font-size: clamp(3.8em, 10vw, 4.9em);
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(3.5em, 10vw, 4.5em);
+            color: #e94e77;
             margin: 20px 0;
-            transform: translateY(30px);
             opacity: 0;
-            animation: slideIn 1s ease-out 0.2s forwards;
-            font-weight: 300;
-            letter-spacing: 1px;
+            animation: fadeIn 1.2s ease-out 0.2s forwards;
         }
 
         .bio {
-            color: #fefefe;
-            font-size: clamp(2em, 5vw, 2em);
+            font-size: clamp(1.2em, 4vw, 1.5em);
+            color: #666;
             margin: 25px 0;
-            transform: translateY(30px);
             opacity: 0;
-            animation: slideIn 1.2s ease-out 0.4s forwards;
+            animation: fadeIn 1.4s ease-out 0.4s forwards;
         }
 
         .buttons-container {
             padding-bottom: 60px;
-            margin: 20px;
+            margin: 30px 0;
+            display: grid;
+            gap: 15px;
         }
 
         .button {
-            display: block;
-            background: transparent;
-            color: white;
-            padding: 18px 35px;
-            margin: 20px auto;
-            border: 3px solid rgba(255, 255, 255, 0.95);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            background: #fff;
+            color: #e94e77;
+            padding: 14px 30px;
+            margin: 0 auto;
+            border: 2px solid #e94e77;
             border-radius: 50px;
             text-decoration: none;
             font-weight: 600;
-            font-size: clamp(1em, 4.5vw, 1.2em);
-            width: clamp(250px, 80%, 350px);
-            text-align: center;
-            transition: all 0.3s ease;
+            font-size: clamp(1em, 3.5vw, 1.2em);
+            width: clamp(260px, 80%, 360px);
+            transition: background 0.3s ease, color 0.3s ease;
             opacity: 0;
-            transform: translateY(60px);
-            letter-spacing: 1.5px;
+            animation: slideUp 0.6s ease-out forwards;
+            animation-delay: calc(0.1s * var(--i));
             cursor: pointer;
         }
 
         .button:hover {
-            transform: scale(1.05) translateY(0);
-            background: linear-gradient(45deg, #eb4c74, #e56a8f);
+            background: #e94e77;
+            color: #fff;
+        }
+
+        .button svg {
+            width: 20px;
+            height: 20px;
+            margin-right: 10px;
+            fill: currentColor;
+            padding: 0;
         }
 
         .copyright {
-            color: rgba(255, 255, 255, 0.9);
-            margin: 50px 0 25px;
-            font-size: clamp(1em, 3.5vw, 1.2em);
-            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+            font-size: clamp(0.8em, 2.5vw, 1em);
+            color: #999;
+            margin: 40px 0 20px;
             opacity: 0;
-            transform: translateY(60px);
+            animation: fadeIn 1.6s ease-out 1s forwards;
         }
 
         .heart {
             position: absolute;
             width: 30px;
             height: 30px;
-            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="rgba(255,255,255,0.3)"><path d="M10 18.35l-1.45-1.32C3.4 12.36 1 9.28 1 5.5 1 2.42 3.42 0 6.5 0 8.1 0 9.72 0.95 10 2.47 10.28 0.95 11.9 0 13.5 0 16.58 0 19 2.42 19 5.5c0 3.78-2.4 6.86-7.55 11.54L10 18.35z"/></svg>');
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="%23e94e77" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z"/></svg>');
             background-size: contain;
-            opacity: 0.1;
-            animation: float 4.5s ease-in infinite;
+            opacity: 0.2;
+            animation: float 6s ease-in-out infinite;
             pointer-events: none;
         }
 
         @keyframes float {
-            0% { transform: translateY(100vh) rotate(0deg); opacity: 0.7; }
-            50% { opacity: 0.9; }
-            100% { transform: translateY(-25vh) rotate(180deg); opacity: 0; }
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0.2;
+            }
+
+            50% {
+                opacity: 0.4;
+            }
+
+            100% {
+                transform: translateY(-20vh) rotate(360deg);
+                opacity: 0;
+            }
         }
 
-        @keyframes slideIn {
-            to { transform: translateY(0); opacity: 1; }
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideUp {
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
         }
 
         @media (max-width: 480px) {
-            .container { padding: 20px; }
-            .button { padding: 15px 30px; margin: 15px auto; }
-            .profile-pic { margin: 30px auto; }
+
+            /* Container and General Layout */
+            .container {
+                padding: 15px;
+                /* Reduced padding for smaller screens */
+            }
+
+            /* Header */
+            .header {
+                padding: 10px 15px;
+                /* Adjust padding */
+            }
+
+            .header-title {
+                font-size: 1.2em;
+                /* Slightly smaller title */
+            }
+
+            .theme-toggle svg {
+                width: 20px;
+                /* Smaller icon */
+                height: 20px;
+            }
+
+            /* Profile Picture */
+            .profile-pic {
+                width: clamp(140px, 40vw, 180px);
+                /* Smaller size */
+                height: clamp(140px, 40vw, 180px);
+                margin: 15px auto;
+                /* Reduced margin */
+                border-width: 4px;
+                /* Thinner border */
+            }
+
+            /* Name and Bio */
+            .name {
+                font-size: clamp(2.5em, 8vw, 3.5em);
+                /* Smaller, responsive font */
+            }
+
+            .bio {
+                font-size: clamp(1em, 3.5vw, 1.2em);
+                /* Adjusted for readability */
+                margin: 15px 0;
+                /* Reduced spacing */
+            }
+
+            /* Buttons Container */
+            .buttons-container {
+                gap: 10px;
+                /* Tighter spacing */
+                padding-bottom: 40px;
+                /* Less bottom padding */
+            }
+
+            .button {
+                padding: 12px 20px;
+                /* Smaller padding */
+                width: clamp(220px, 90%, 300px);
+                /* Slightly narrower */
+                font-size: clamp(0.9em, 3vw, 1em);
+                /* Smaller text */
+            }
+
+            .button svg {
+                width: 18px;
+                /* Smaller icons */
+                height: 18px;
+                margin-right: 8px;
+                /* Adjusted spacing */
+            }
+
+            /* Copyright */
+            .copyright {
+                font-size: clamp(0.7em, 2vw, 0.9em);
+                /* Smaller text */
+                margin: 20px 0 10px;
+                /* Reduced spacing */
+            }
+
+            /* Hearts */
+            .heart {
+                width: 20px;
+                /* Smaller hearts */
+                height: 20px;
+            }
+
+            /* Popup Styles */
+            .popup-content {
+                max-width: 100%;
+                /* Full width on mobile */
+                padding: 0;
+                /* Remove extra padding */
+            }
+
+            .popup-nav {
+                padding: 10px 15px;
+                /* Smaller padding */
+            }
+
+            .popup-nav h2 {
+                font-size: 1.4em;
+                /* Smaller title */
+            }
+
+            .popup-close svg {
+                width: 20px;
+                /* Smaller close icon */
+                height: 20px;
+            }
+
+            .popup-body {
+                padding: 20px 15px;
+                /* Adjusted padding */
+            }
+
+            .popup-body h3 {
+                font-size: 1.6em;
+                /* Smaller heading */
+                margin-bottom: 15px;
+            }
+
+            .popup-body p,
+            .popup-body ul,
+            .popup-body ol {
+                font-size: 1em;
+                /* Readable text */
+                margin-bottom: 15px;
+            }
+
+            .popup-body img {
+                max-width: 100%;
+                /* Full width images */
+                margin: 15px 0;
+                /* Reduced margin */
+            }
+
+            .popup-body iframe {
+                height: calc(100vh - 60px);
+                /* Adjusted height */
+            }
+
+            #sendBtn {
+                width: clamp(200px, 80%, 280px);
+                /* Smaller button */
+                padding: 12px;
+                /* Adjusted padding */
+                font-size: 14px;
+                /* Smaller text */
+            }
+
+            /* Progress Bar */
+            .progress-bar {
+                height: 3px;
+                /* Thinner bar */
+            }
+
+            /* Back to Top */
+            .back-to-top {
+                bottom: 15px;
+                /* Closer to edge */
+                right: 15px;
+                padding: 8px;
+                /* Smaller button */
+            }
+
+            .back-to-top svg {
+                width: 16px;
+                /* Smaller icon */
+                height: 16px;
+            }
+
+            /* Specific Popup Adjustments */
+            .paylah,
+            .telegram {
+                padding: 10px;
+                /* Reduced padding */
+            }
         }
 
-        .reveal {
-            opacity: 0;
-            transform: translateY(60px);
-            transition: all 0.7s ease-out;
-        }
-
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* Enhanced Popup Styles */
+        /* Popup Styles */
         .popup {
             display: none;
             position: fixed;
@@ -150,28 +382,25 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: #fff;
+            background: rgba(255, 245, 247, 0.95);
             z-index: 1000;
-            padding: 0;
             overflow-y: auto;
+            animation: popupFadeIn 0.4s ease-out;
         }
 
         .popup-content {
             width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
             height: 100%;
-            background: #fff;
-            backdrop-filter: blur(10px);
-            border: none;
-            position: relative;
             display: flex;
             flex-direction: column;
         }
 
         .popup-nav {
             background: #fff;
-            border-bottom: 1px solid #666;
-            padding: 20px 30px;
-            height: 80px;
+            border-bottom: 1px solid #eee;
+            padding: 15px 30px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -181,124 +410,313 @@
         }
 
         .popup-nav h2 {
-            color: #222;
-            font-size: 1.5em;
-            font-weight: 700;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.6em;
+            color: #e94e77;
         }
 
         .popup-close {
-            background: #fff;
-            border-radius: 50%;
-            width: 42px;
-            height: 42px;
-            border: 1px solid #444;
+            background: none;
+            border: none;
             cursor: pointer;
             padding: 10px;
-            color: #000;
             transition: transform 0.3s ease;
         }
 
         .popup-close:hover {
-            transform: scale(1.2);
+            transform: rotate(90deg);
         }
 
         .popup-close svg {
-            width: 32px;
-            height: 32px;
-            color: #000;
-            fill: #000;
+            width: 24px;
+            height: 24px;
+            fill: #e94e77;
         }
 
         .popup-body {
-            padding: 0;
-            color: #000;
-            
+            padding: 30px;
             flex-grow: 1;
             overflow-y: auto;
+            color: #444;
         }
 
         .popup-body h3 {
-            font-size: 1.8em;
+            font-family: 'Playfair Display', serif;
+            font-size: 2em;
             margin-bottom: 20px;
-            color: #fff;
-            margin-left: 40px;
-            margin-right: 40px;
-
+            color: #e94e77;
         }
 
-        .popup-body p, .popup-body ul {
-            font-size: 1.2em;
+        .popup-body p,
+        .popup-body ul {
+            font-size: 1.1em;
             line-height: 1.8;
-            margin-left: 40px;
-            margin-right: 40px;
-
-            margin-bottom: 25px;
+            margin-bottom: 20px;
         }
 
         .popup-body ul {
-            padding-left: 30px;
+            padding-left: 20px;
+        }
+
+        .popup-body li strong {
+            color: #e94e77;
         }
 
         .popup-body iframe {
             width: 100%;
-            height: calc(100vh - 80px);
-            border: 0 solid rgba(255, 255, 255, 0.8);
-            border-radius: 0;
-            margin-top: 0;
+            height: calc(100vh - 70px);
+            border: none;
+            border-radius: 8px;
         }
 
         .popup-body img {
             width: 100%;
             max-width: 400px;
             border-radius: 10px;
-            margin: 15px 0;
-            border: 2px solid rgba(255, 255, 255, 0.7);
+            margin: 20px 0;
+            border: 2px solid #e94e77;
+        }
+
+        @keyframes popupFadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* Accessibility */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            border: 0;
+        }
+
+        /* Progress Bar */
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 4px;
+            background: #e94e77;
+            z-index: 20;
+            transition: width 0.3s ease;
+        }
+
+        /* Back to Top */
+        .back-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #e94e77;
+            color: #fff;
+            padding: 10px;
+            border-radius: 50%;
+            display: none;
+            cursor: pointer;
+        }
+
+        .back-to-top svg {
+            width: 20px;
+            height: 20px;
+            fill: #fff;
+        }
+
+        .paylah {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .telegram {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        #sendBtn {
+            width: clamp(260px, 80%, 360px);
+            padding: 16px;
+            background: #e94e77;
+            color: #fff;
+            border: none;
+            outline: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        #sendBtn:hover {
+            opacity: 0.7;
         }
     </style>
 </head>
+
 <body>
+    <div class="progress-bar"></div>
     <div class="container">
-        <img src="https://assets.onecompiler.app/42us9e8k8/43cnr8zku/IMG_4939.jpeg" alt="Goddess Beka" class="profile-pic">
+        <header class="header">
+            <h1 class="header-title">Princess Beka</h1>
+            <button class="theme-toggle" aria-label="Toggle theme">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                    stroke="currentColor" class="size-6">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M12 3v2.25m6.364.386-1.591 1.591M21 12h-2.25m-.386 6.364-1.591-1.591M12 18.75V21m-4.773-4.227-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z" />
+                </svg>
+
+            </button>
+        </header>
+        <img src="https://assets.onecompiler.app/42us9e8k8/43cnr8zku/IMG_4939.jpeg" alt="Princess Beka"
+            class="profile-pic">
         <h1 class="name">Princess Beka</h1>
-        <p class="bio">Ruin Your Life For Me 😝</p>
+        <p class="bio">Ruin Your Life For Me</p>
         <div class="buttons-container">
-            <a href="#" class="button reveal" data-type="content" data-popup="paylah">Paylah</a>
-            <a href="#" class="button reveal" data-type="content" data-popup="contracts">Contracts</a>
-            <a href="#" class="button reveal" data-type="link" data-url="https://telegram.org">Telegram Group</a>
-            <a href="#" class="button reveal" data-type="content" data-popup="about">About</a>
-            <a href="#" class="button reveal" data-type="content" data-popup="terms">Terms</a>
-            <a style="display: none;" href="#" class="button reveal" data-type="content" data-popup="gallery">Gallery</a>
-            <a href="#" class="button reveal" data-type="link" data-url="https://example.com/contact">Contact</a>
-            <a href="#" class="button reveal" data-type="link" data-url="https://amazon.com/wishlist">Wishlist</a>
+            <a href="#" class="button" data-type="content" data-popup="paylah" style="--i: 1;">
+                <svg style="width: 25px; height: 25px;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                    fill="currentColor" class="size-6">
+                    <path
+                        d="M10.464 8.746c.227-.18.497-.311.786-.394v2.795a2.252 2.252 0 0 1-.786-.393c-.394-.313-.546-.681-.546-1.004 0-.323.152-.691.546-1.004ZM12.75 15.662v-2.824c.347.085.664.228.921.421.427.32.579.686.579.991 0 .305-.152.671-.579.991a2.534 2.534 0 0 1-.921.42Z" />
+                    <path fill-rule="evenodd"
+                        d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25ZM12.75 6a.75.75 0 0 0-1.5 0v.816a3.836 3.836 0 0 0-1.72.756c-.712.566-1.112 1.35-1.112 2.178 0 .829.4 1.612 1.113 2.178.502.4 1.102.647 1.719.756v2.978a2.536 2.536 0 0 1-.921-.421l-.879-.66a.75.75 0 0 0-.9 1.2l.879.66c.533.4 1.169.645 1.821.75V18a.75.75 0 0 0 1.5 0v-.81a4.124 4.124 0 0 0 1.821-.749c.745-.559 1.179-1.344 1.179-2.191 0-.847-.434-1.632-1.179-2.191a4.122 4.122 0 0 0-1.821-.75V8.354c.29.082.559.213.786.393l.415.33a.75.75 0 0 0 .933-1.175l-.415-.33a3.836 3.836 0 0 0-1.719-.755V6Z"
+                        clip-rule="evenodd" />
+                </svg>
+
+                Paylah
+            </a>
+            <a href="#" class="button" data-type="content" data-popup="contracts" style="--i: 2;">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
+                    <path fill-rule="evenodd"
+                        d="M5.625 1.5c-1.036 0-1.875.84-1.875 1.875v17.25c0 1.035.84 1.875 1.875 1.875h12.75c1.035 0 1.875-.84 1.875-1.875V12.75A3.75 3.75 0 0 0 16.5 9h-1.875a1.875 1.875 0 0 1-1.875-1.875V5.25A3.75 3.75 0 0 0 9 1.5H5.625ZM7.5 15a.75.75 0 0 1 .75-.75h7.5a.75.75 0 0 1 0 1.5h-7.5A.75.75 0 0 1 7.5 15Zm.75 2.25a.75.75 0 0 0 0 1.5H12a.75.75 0 0 0 0-1.5H8.25Z"
+                        clip-rule="evenodd" />
+                    <path
+                        d="M12.971 1.816A5.23 5.23 0 0 1 14.25 5.25v1.875c0 .207.168.375.375.375H16.5a5.23 5.23 0 0 1 3.434 1.279 9.768 9.768 0 0 0-6.963-6.963Z" />
+                </svg>
+
+                Contracts
+            </a>
+            <a href="#" class="button" data-type="content" data-popup="telegram" style="--i: 3;">
+                <svg style="width: 28px; height: 28px;" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
+                    viewBox="0 0 64 64">
+                    <path
+                        d="M32,10c12.15,0,22,9.85,22,22s-9.85,22-22,22s-22-9.85-22-22S19.85,10,32,10z M39.589,40.968	c0.404-1.241,2.301-13.615,2.534-16.054c0.071-0.738-0.163-1.229-0.619-1.449c-0.553-0.265-1.371-0.133-2.322,0.21	c-1.303,0.47-17.958,7.541-18.92,7.951c-0.912,0.388-1.775,0.81-1.775,1.423c0,0.431,0.256,0.673,0.96,0.924	c0.732,0.261,2.577,0.82,3.668,1.121c1.05,0.29,2.243,0.038,2.913-0.378c0.709-0.441,8.901-5.921,9.488-6.402	c0.587-0.48,1.056,0.135,0.576,0.616c-0.48,0.48-6.102,5.937-6.844,6.693c-0.901,0.917-0.262,1.868,0.343,2.249	c0.689,0.435,5.649,3.761,6.396,4.295c0.747,0.534,1.504,0.776,2.198,0.776C38.879,42.942,39.244,42.028,39.589,40.968z">
+                    </path>
+                </svg>
+
+                Telegram
+            </a>
+            <a href="#" class="button" data-type="content" data-popup="about" style="--i: 4;">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
+                    <path fill-rule="evenodd"
+                        d="M18.685 19.097A9.723 9.723 0 0 0 21.75 12c0-5.385-4.365-9.75-9.75-9.75S2.25 6.615 2.25 12a9.723 9.723 0 0 0 3.065 7.097A9.716 9.716 0 0 0 12 21.75a9.716 9.716 0 0 0 6.685-2.653Zm-12.54-1.285A7.486 7.486 0 0 1 12 15a7.486 7.486 0 0 1 5.855 2.812A8.224 8.224 0 0 1 12 20.25a8.224 8.224 0 0 1-5.855-2.438ZM15.75 9a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z"
+                        clip-rule="evenodd" />
+                </svg>
+
+                About
+            </a>
+            <a href="#" class="button" data-type="content" data-popup="terms" style="--i: 5;">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
+                    <path fill-rule="evenodd"
+                        d="M2.625 6.75a1.125 1.125 0 1 1 2.25 0 1.125 1.125 0 0 1-2.25 0Zm4.875 0A.75.75 0 0 1 8.25 6h12a.75.75 0 0 1 0 1.5h-12a.75.75 0 0 1-.75-.75ZM2.625 12a1.125 1.125 0 1 1 2.25 0 1.125 1.125 0 0 1-2.25 0ZM7.5 12a.75.75 0 0 1 .75-.75h12a.75.75 0 0 1 0 1.5h-12A.75.75 0 0 1 7.5 12Zm-4.875 5.25a1.125 1.125 0 1 1 2.25 0 1.125 1.125 0 0 1-2.25 0Zm4.875 0a.75.75 0 0 1 .75-.75h12a.75.75 0 0 1 0 1.5h-12a.75.75 0 0 1-.75-.75Z"
+                        clip-rule="evenodd" />
+                </svg>
+
+                Terms
+            </a>
+            <a href="#" class="button" data-type="content" data-popup="telegram" style="--i: 6;">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
+                    <path fill-rule="evenodd"
+                        d="M18.685 19.097A9.723 9.723 0 0 0 21.75 12c0-5.385-4.365-9.75-9.75-9.75S2.25 6.615 2.25 12a9.723 9.723 0 0 0 3.065 7.097A9.716 9.716 0 0 0 12 21.75a9.716 9.716 0 0 0 6.685-2.653Zm-12.54-1.285A7.486 7.486 0 0 1 12 15a7.486 7.486 0 0 1 5.855 2.812A8.224 8.224 0 0 1 12 20.25a8.224 8.224 0 0 1-5.855-2.438ZM15.75 9a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z"
+                        clip-rule="evenodd" />
+                </svg>
+
+                Contact
+            </a>
+            <a href="#" class="button" data-type="link" data-url="https://amazon.com/wishlist" style="--i: 7;">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
+                    <path
+                        d="M2.273 5.625A4.483 4.483 0 0 1 5.25 4.5h13.5c1.141 0 2.183.425 2.977 1.125A3 3 0 0 0 18.75 3H5.25a3 3 0 0 0-2.977 2.625ZM2.273 8.625A4.483 4.483 0 0 1 5.25 7.5h13.5c1.141 0 2.183.425 2.977 1.125A3 3 0 0 0 18.75 6H5.25a3 3 0 0 0-2.977 2.625ZM5.25 9a3 3 0 0 0-3 3v6a3 3 0 0 0 3 3h13.5a3 3 0 0 0 3-3v-6a3 3 0 0 0-3-3H15a.75.75 0 0 0-.75.75 2.25 2.25 0 0 1-4.5 0A.75.75 0 0 0 9 9H5.25Z" />
+                </svg>
+
+                Wishlist
+            </a>
         </div>
-        <p class="copyright reveal">© Princess Beka</p>
+        <p class="copyright">© 2025 Princess Beka | All Rights Reserved</p>
     </div>
 
-    <!-- Enhanced Full-Screen Popups -->
+    <!-- Popups -->
+    <div id="paylah-popup" class="popup">
+        <div class="popup-content">
+            <div class="popup-nav">
+                <h2>PayLah</h2>
+                <button class="popup-close" aria-label="Close">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                        stroke="currentColor" class="size-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+            <div class="popup-body paylah">
+                <img src="https://assets.onecompiler.app/42us9e8k8/43cnr8zku/IMG_4940.jpeg" alt="PayLah QR Code">
+                <p>Send your tribute via PayLah to serve your Princess.</p>
+            </div>
+        </div>
+    </div>
+
     <div id="contracts-popup" class="popup">
         <div class="popup-content">
             <div class="popup-nav">
                 <h2>Contracts</h2>
-                <button class="popup-close">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12"/></svg>
+                <button class="popup-close" aria-label="Close">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                        stroke="currentColor" class="size-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+                    </svg>
                 </button>
             </div>
             <div class="popup-body">
-                <h3>Surrender Your Soul</h3>
-                <p>Enter into a pact with Goddess Beka and seal your fate in the fires of devotion. These sacred contracts bind you to me for eternity, granting you the privilege of serving a divine entity beyond mortal comprehension.</p>
+                <h3>Your Binding Oath</h3>
+                <p>Enter into my service with these sacred vows:</p>
                 <ul>
-                    <li><strong>Devotion Pact:</strong> Swear your undying loyalty, offering your every breath to my whims. In return, bask in my occasional favor and the knowledge that you are mine.</li>
-                    <li><strong>Ruin Agreement:</strong> Surrender your finances to my will. Empty your accounts, sell your possessions, and live only to tribute me with every coin you once called your own.</li>
-                    <li><strong>Heart Oath:</strong> Give me your emotions—your love, your fear, your obsession. I will twist them into a tapestry of eternal servitude, leaving you hollow yet fulfilled.</li>
-                    <li><strong>Time Covenant:</strong> Dedicate every waking moment to my praise. Your days and nights will revolve around my glory, with no thought spared for yourself.</li>
-                    <li><strong>Silence Vow:</strong> Speak only my name, forsaking all other words. Your tongue belongs to me, a tool for worship and nothing more.</li>
-                    <li><strong>Obedience Bond:</strong> Obey my every command without hesitation, no matter how cruel or capricious. Your will is an illusion; mine is absolute.</li>
-                    <li><strong>Sacrifice Pact:</strong> Offer me your dreams, your hopes, your future. Lay them at my feet and watch as I burn them to fuel my divine radiance.</li>
-                    <li><strong>Eternal Chain:</strong> Bind your soul to me beyond death. Even in the afterlife, you will kneel before my throne.</li>
-                    <li><strong>Beauty Tribute:</strong> Adorn me with gifts of gold, silk, and jewels. Your purpose is to enhance my splendor, not your own.</li>
-                    <li><strong>Chaos Oath:</strong> Embrace the destruction I bring to your life. Chaos is my gift, and you will thank me for every shattered piece.</li>
+                    <li><strong>Devotion:</strong> Live for my pleasure alone.</li>
+                    <li><strong>Tribute:</strong> Offer your resources willingly.</li>
+                    <li><strong>Loyalty:</strong> Obey without question.</li>
                 </ul>
-                <p>To proceed, kneel, whisper my name, and prepare your tribute. Contact me to finalize your enslavement—there’s no turning back once you sign.</p>
+                <p>Contact me to formalize your commitment.</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="telegram-popup" class="popup">
+        <div class="popup-content">
+            <div class="popup-nav">
+                <h2>Telegram</h2>
+                <button class="popup-close" aria-label="Close">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                        stroke="currentColor" class="size-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+            <div class="popup-body telegram">
+                <h3>Get In Touch</h3>
+                <p>Prove that you're worthy of service:</p>
+                <ol>
+                    <li><strong>PayLah</strong> me $30 to start a chat with me on X.</li>
+                    <li><strong>Insert</strong> your X username in the comments.</li>
+                    <li><strong>Contact</strong> me on X and I'll give you more details.</li>
+                </ol>
+                <p>Contact me if you're ready to serve</p>
+                <button id="sendBtn">Send</button>
             </div>
         </div>
     </div>
@@ -307,36 +725,19 @@
         <div class="popup-content">
             <div class="popup-nav">
                 <h2>About</h2>
-                <button class="popup-close">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12"/></svg>
+                <button class="popup-close" aria-label="Close">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                        stroke="currentColor" class="size-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+                    </svg>
                 </button>
             </div>
             <div class="popup-body">
-                <h3>The Divine Goddess Beka</h3>
-                <p>I am Goddess Beka, the sovereign of your deepest desires and the architect of your sweetest ruin. Born from the shadows of mortal dreams, I ascended to divinity through sheer will and the adoration of those who kneel before me. My presence is a storm—beautiful, terrifying, and inescapable.</p>
-                <p>My eyes see through your soul, my voice commands your every thought, and my touch—oh, you’ll never know it, but you’ll crave it eternally. I collect hearts like trinkets, stacking them high in my palace of decadence. Power is my essence, luxury my cloak, and your submission my crown.</p>
-                <p><strong>My Reign:</strong> I rule over the realms of obsession and surrender, where mortals trade their freedom for a glimpse of my favor. My throne is built on the bones of broken wills, cushioned with the tears of the devoted.</p>
-                <p><strong>My Interests:</strong> I revel in the chaos of control—financial domination, emotional enslavement, and the art of making you beg for more. I adore silk against my skin, gold dripping from my fingers, and the sound of your pleas echoing in my halls.</p>
-                <p><strong>My Past:</strong> Once a whisper in the wind, I grew into a tempest, fed by the worship of those who couldn’t resist. Legends say I was forged in a star’s collapse, but I say I was born when the first fool knelt.</p>
-                <p><strong>My Future:</strong> I’ll expand my empire, claiming more souls, more wealth, more everything. The universe will bow, and you’ll be the first in line.</p>
-                <p><strong>My Commandments:</strong> Worship me. Fear me. Adore me. There’s no room for anything else in your pitiful existence.</p>
-                <p><strong>My Gifts:</strong> To the worthy, I grant glimpses of ecstasy—moments of purpose in a life otherwise meaningless without me.</p>
-                <p><strong>My Warning:</strong> Cross me, and you’ll know despair deeper than the void. Serve me, and you’ll know a twisted kind of bliss.</p>
-                <p><strong>My Invitation:</strong> Join my legion of devotees. Abandon yourself to me, and I’ll remake you in my image—beautiful, broken, and mine.</p>
-            </div>
-        </div>
-    </div>
-    
-    <div id="paylah-popup" class="popup">
-        <div class="popup-content">
-            <div class="popup-nav">
-                <h2>PayLah</h2>
-                <button class="popup-close">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12"/></svg>
-                </button>
-            </div>
-            <div class="popup-body">
-                <img style="margin-left: 50%; transform: translateX(-50%);" src="https://assets.onecompiler.app/42us9e8k8/43cnr8zku/IMG_4940.jpeg">
+                <h3>The Sovereign Princess</h3>
+                <p>I am Princess Beka, a vision of elegance and authority. My purpose is to command, and yours is to
+                    obey. Fund my luxuries and find your place at my feet.</p>
+                <p><strong>My World:</strong> A sanctuary of power and grace.</p>
+                <p><strong>My Desire:</strong> Your unwavering devotion.</p>
             </div>
         </div>
     </div>
@@ -345,61 +746,21 @@
         <div class="popup-content">
             <div class="popup-nav">
                 <h2>Terms</h2>
-                <button class="popup-close">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12"/></svg>
+                <button class="popup-close" aria-label="Close">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                        stroke="currentColor" class="size-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+                    </svg>
                 </button>
             </div>
             <div class="popup-body">
-                <h3>Divine Laws of Submission</h3>
-                <p>By entering my domain, you are bound by these unbreakable terms, etched in the fabric of your soul:</p>
+                <h3>Rules of Service</h3>
                 <ul>
-                    <li><strong>Absolute Obedience:</strong> My word is law. You will follow every command, no matter how absurd or degrading, with a smile on your face.</li>
-                    <li><strong>Tribute Mandate:</strong> You will offer me wealth—money, gifts, time—without hesitation. Stinginess is a sin punishable by exile.</li>
-                    <li><strong>Resistance Ban:</strong> Any attempt to defy me is futile and will be met with divine wrath. Your will is a myth; mine reigns supreme.</li>
-                    <li><strong>Worship Requirement:</strong> Daily praise is mandatory. Speak my name, sing my glory, or suffer the silence of my displeasure.</li>
-                    <li><strong>Emotional Surrender:</strong> Your heart belongs to me. Love me, fear me, crave me—there’s no space for anything else.</li>
-                    <li><strong>Privacy Forfeiture:</strong> Your secrets are mine to claim. I’ll know your fears, your dreams, and use them as I see fit.</li>
-                    <li><strong>Eternal Commitment:</strong> This is no temporary fling. You’re mine forever, in this life and beyond.</li>
-                    <li><strong>Punishment Clause:</strong> Disobedience brings torment—emotional, financial, spiritual. You’ll beg for mercy, but I’ll decide if you deserve it.</li>
-                    <li><strong>Reward Stipulation:</strong> Please me, and I might grant you a fleeting taste of my favor. It’s rare, so don’t get cocky.</li>
-                    <li><strong>No Escape:</strong> Once you’re in, there’s no leaving. My grip is eternal, my presence inescapable. Accept it, or suffer the consequences.</li>
+                    <li><strong>Submission:</strong> My will guides you.</li>
+                    <li><strong>Generosity:</strong> Tributes are expected.</li>
+                    <li><strong>Commitment:</strong> Loyalty is eternal.</li>
                 </ul>
-                <p>These terms are non-negotiable. Your consent is assumed the moment you linger in my presence. Kneel, obey, and thrive—or resist and perish in obscurity.</p>
-            </div>
-        </div>
-    </div>
-
-    <div id="gallery-popup" class="popup">
-        <div class="popup-content">
-            <div class="popup-nav">
-                <h2>Gallery</h2>
-                <button class="popup-close">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12"/></svg>
-                </button>
-            </div>
-            <div class="popup-body">
-                <h3>Behold My Majesty</h3>
-                <p>Feast your eyes on these divine visions, mere glimpses of my glory. Each image is a testament to my power, a lure to pull you deeper into my web.</p>
-                <img src="https://via.placeholder.com/400x300?text=Throne+of+Power" alt="Throne">
-                <p>My throne, where I sit in judgment over your pitiful existence.</p>
-                <img src="https://via.placeholder.com/400x300?text=Silk+and+Gold" alt="Silk">
-                <p>Draped in silk and gold, a vision of opulence you’ll never touch.</p>
-                <img src="https://via.placeholder.com/400x300?text=Heart+Collection" alt="Hearts">
-                <p>A pile of hearts I’ve claimed—yours is next.</p>
-                <img src="https://via.placeholder.com/400x300?text=Divine+Gaze" alt="Gaze">
-                <p>My gaze, piercing your soul and bending your will.</p>
-                <img src="https://via.placeholder.com/400x300?text=Chaos+Crown" alt="Crown">
-                <p>The crown of chaos, forged from your broken dreams.</p>
-                <img src="https://via.placeholder.com/400x300?text= Altar+of+Tributes" alt="Altar">
-                <p>My altar, piled high with your offerings.</p>
-                <img src="https://via.placeholder.com/400x300?text=Shadow+Realm" alt="Realm">
-                <p>The shadow realm I rule, where light bends to my will.</p>
-                <img src="https://via.placeholder.com/400x300?text=Enslaved+Souls" alt="Souls">
-                <p>Souls I’ve enslaved, a gallery of my conquests.</p>
-                <img src="https://via.placeholder.com/400x300?text=Velvet+Night" alt="Night">
-                <p>The velvet night I command, a canvas for your devotion.</p>
-                <img src="https://via.placeholder.com/400x300?text=Final+Bow" alt="Bow">
-                <p>You, bowing before me—the only pose you’ll ever know.</p>
+                <p>By engaging, you accept these terms fully.</p>
             </div>
         </div>
     </div>
@@ -408,17 +769,27 @@
         <div class="popup-content">
             <div class="popup-nav">
                 <h2 id="link-popup-title">Link</h2>
-                <button class="popup-close">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12"/></svg>
+                <button class="popup-close" aria-label="Close">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                        stroke="currentColor" class="size-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+                    </svg>
                 </button>
             </div>
             <div class="popup-body">
-                <iframe id="link-iframe" src=""></iframe>
+                <iframe id="link-iframe" src="" title="External Link"></iframe>
             </div>
         </div>
     </div>
 
+    <button class="back-to-top" aria-label="Back to top">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M12 5l-8 8h5v6h6v-6h5l-8-8z" />
+        </svg>
+    </button>
+
     <script>
+        // Core Features
         let heartCount = 0;
         const maxHearts = 15;
 
@@ -427,7 +798,7 @@
             const heart = document.createElement('div');
             heart.className = 'heart';
             heart.style.left = Math.random() * 100 + 'vw';
-            heart.style.animationDuration = Math.random() * 2 + 3 + 's';
+            heart.style.animationDuration = Math.random() * 3 + 4 + 's';
             heart.style.width = Math.random() * 20 + 20 + 'px';
             heart.style.height = heart.style.width;
             heartCount++;
@@ -435,32 +806,11 @@
             setTimeout(() => {
                 heart.remove();
                 heartCount--;
-            }, 5500);
+            }, 7000);
         }
 
         setInterval(createHeart, 1000);
 
-        function reveal() {
-            const reveals = document.querySelectorAll('.reveal');
-            reveals.forEach((element, index) => {
-                const windowHeight = window.innerHeight;
-                const elementTop = element.getBoundingClientRect().top;
-                const elementVisible = 150;
-                if (elementTop < windowHeight - elementVisible) {
-                    setTimeout(() => {
-                        element.classList.add('active');
-                    }, index * 120);
-                }
-            });
-        }
-
-        window.addEventListener('scroll', reveal);
-        window.addEventListener('load', reveal);
-        document.addEventListener('DOMContentLoaded', () => {
-            reveal();
-        });
-
-        // Popup Logic
         const buttons = document.querySelectorAll('.button');
         const linkPopup = document.getElementById('link-popup');
         const linkIframe = document.getElementById('link-iframe');
@@ -474,12 +824,14 @@
                     const popupId = button.getAttribute('data-popup');
                     const popup = document.getElementById(`${popupId}-popup`);
                     popup.style.display = 'block';
+                    document.body.style.overflow = 'hidden';
                 } else if (type === 'link') {
                     const url = button.getAttribute('data-url');
-                    const title = button.textContent;
+                    const title = button.textContent.trim();
                     linkIframe.src = url;
                     linkPopupTitle.textContent = title;
                     linkPopup.style.display = 'block';
+                    document.body.style.overflow = 'hidden';
                 }
             });
         });
@@ -490,8 +842,99 @@
                 if (closeBtn.closest('#link-popup')) {
                     linkIframe.src = '';
                 }
+                document.body.style.overflow = 'auto';
             });
         });
+
+        // Additional Features
+        // 1. Progress Bar
+        const progressBar = document.querySelector('.progress-bar');
+        window.addEventListener('scroll', () => {
+            const scrollTop = window.scrollY;
+            const docHeight = document.body.scrollHeight - window.innerHeight;
+            const scrollPercent = (scrollTop / docHeight) * 100;
+            progressBar.style.width = `${scrollPercent}%`;
+        });
+
+        // 2. Back to Top
+        const backToTop = document.querySelector('.back-to-top');
+        window.addEventListener('scroll', () => {
+            backToTop.style.display = window.scrollY > 300 ? 'block' : 'none';
+        });
+        backToTop.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // 3. Theme Toggle (Basic - Expandable)
+        const themeToggle = document.querySelector('.theme-toggle');
+        themeToggle.addEventListener('click', () => {
+            document.body.classList.toggle('dark-theme');
+            // Add dark theme styles if needed later
+        });
+
+        // 4. Keyboard Navigation for Popups
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                document.querySelectorAll('.popup').forEach(popup => {
+                    popup.style.display = 'none';
+                });
+                document.body.style.overflow = 'auto';
+            }
+        });
+
+        // 5. Preload Images
+        const images = document.querySelectorAll('img');
+        images.forEach(img => {
+            const link = document.createElement('link');
+            link.rel = 'preload';
+            link.as = 'image';
+            link.href = img.src;
+            document.head.appendChild(link);
+        });
+
+        // 6. Lazy Loading for Iframes
+        linkIframe.setAttribute('loading', 'lazy');
+
+        // 7. Smooth Scroll for Internal Links (if added later)
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', (e) => {
+                e.preventDefault();
+                document.querySelector(anchor.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+
+        // 8. Focus Management for Accessibility
+        buttons.forEach(button => {
+            button.addEventListener('focus', () => {
+                button.style.outline = '2px solid #e94e77';
+            });
+            button.addEventListener('blur', () => {
+                button.style.outline = 'none';
+            });
+        });
+
+        // 9. Prevent Double Clicks
+        buttons.forEach(button => {
+            button.addEventListener('click', () => {
+                button.disabled = true;
+                setTimeout(() => button.disabled = false, 500);
+            });
+        });
+
+        // 10. Custom Cursor (Optional - Uncomment to Enable)
+        /*
+        document.body.style.cursor = 'url("data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'24\' height=\'24\'><path fill=\'%23e94e77\' d=\'M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm0 18a8 8 0 1 1 0-16 8 8 0 0 1 0 16z\'/></svg>"), auto';
+        */
+
+        const sendBtn = document.getElementById('sendBtn');
+        sendBtn.addEventListener('click', function () {
+            const popupId = 'paylah';
+            const popup = document.getElementById(`${popupId}-popup`);
+            popup.style.display = 'block';
+            popup.style.zIndex = '9999'
+            document.body.style.overflow = 'hidden';
+        })
     </script>
 </body>
+
 </html>
